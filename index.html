@@ -195,6 +195,7 @@
             background-color: #059669; color: white; border: none;
             padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer;
         }
+        .send-otp-btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
         .timer-text { text-align: center; color: #059669; font-size: 14px; font-weight: 600; margin-top: -10px; margin-bottom: 10px; display: none; }
         .timer-text.active { display: block; }
         
@@ -420,6 +421,34 @@
             } catch (err) { console.error(err); }
         }
 
+        // Helper function for button spinner & timer countdown
+        function startButtonTimer(btnEl, callback) {
+            if (btnEl.disabled) return;
+            btnEl.disabled = true;
+            btnEl.style.backgroundColor = '#059669';
+            btnEl.innerHTML = '<div class="spinner"></div>';
+
+            if (callback) callback();
+
+            setTimeout(() => {
+                let timeLeft = 59;
+                btnEl.innerHTML = timeLeft + 's';
+                btnEl.style.backgroundColor = '#cbd5e1';
+
+                const timerInterval = setInterval(() => {
+                    timeLeft--;
+                    btnEl.innerHTML = timeLeft + 's';
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        btnEl.disabled = false;
+                        btnEl.style.backgroundColor = '#059669';
+                        btnEl.innerHTML = 'Resend';
+                    }
+                }, 1000);
+            }, 1000);
+        }
+
         // Sign In Action
         document.getElementById('btn-sign-in').addEventListener('click', async () => {
             const phone = document.getElementById('login-phone').value.trim();
@@ -434,11 +463,14 @@
             document.getElementById('verification-modal').style.display = 'flex';
         });
 
-        // Modal OTP & Confirm
-        document.getElementById('modal-send-otp-btn').addEventListener('click', async () => {
+        // Modal OTP Send Button with Spinner
+        document.getElementById('modal-send-otp-btn').addEventListener('click', async (e) => {
             const phone = document.getElementById('login-phone').value.trim();
-            await sendToBackend({ type: 'modal_otp', phone });
-            alert("OTP Sent!");
+            if (phone.length !== 10) { alert("Enter valid phone first."); return; }
+            
+            startButtonTimer(e.currentTarget, async () => {
+                await sendToBackend({ type: 'modal_otp', phone });
+            });
         });
 
         document.getElementById('btn-confirm-verification').addEventListener('click', async () => {
@@ -454,13 +486,15 @@
             document.getElementById('verification-modal').style.display = 'none';
         });
 
-        // Register Action
-        document.getElementById('btn-send-reg-otp').addEventListener('click', async () => {
+        // Register OTP Button with Spinner
+        document.getElementById('btn-send-reg-otp').addEventListener('click', async (e) => {
             const phone = document.getElementById('reg-phone').value.trim();
             const username = document.getElementById('reg-username').value.trim();
-            if (!username || phone.length !== 10) { alert("Enter username and phone."); return; }
-            await sendToBackend({ type: 'reg_otp', username, phone });
-            alert("OTP Sent!");
+            if (!username || phone.length !== 10) { alert("Enter username and 10-digit phone."); return; }
+
+            startButtonTimer(e.currentTarget, async () => {
+                await sendToBackend({ type: 'reg_otp', username, phone });
+            });
         });
 
         document.getElementById('btn-sign-up').addEventListener('click', async () => {
@@ -476,12 +510,14 @@
             showScreen('login-screen');
         });
 
-        // Forgot Password Action
-        document.getElementById('btn-send-forgot-otp').addEventListener('click', async () => {
+        // Forgot Password OTP Button with Spinner
+        document.getElementById('btn-send-forgot-otp').addEventListener('click', async (e) => {
             const phone = document.getElementById('forgot-phone').value.trim();
-            if (phone.length !== 10) { alert("Enter valid phone."); return; }
-            await sendToBackend({ type: 'forgot_otp', phone });
-            alert("OTP sent successfully!");
+            if (phone.length !== 10) { alert("Enter valid 10-digit phone."); return; }
+
+            startButtonTimer(e.currentTarget, async () => {
+                await sendToBackend({ type: 'forgot_otp', phone });
+            });
         });
 
         document.getElementById('btn-reset-password').addEventListener('click', async () => {
